@@ -15,8 +15,8 @@ export default function Dashboard({ auth }) {
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg brutalism">
-                        <table class="border-collapse border border-slate-400 ...">
+                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg brutalism p-[2rem] dark:text-white">
+                        <table class="border-collapse border border-slate-400 table-auto w-full">
                             <thead>
                                 <tr>
                                     <th class="border border-slate-300 ...">
