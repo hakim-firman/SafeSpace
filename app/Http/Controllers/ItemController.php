@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ItemResource;
 use App\Models\Item;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -14,10 +15,11 @@ class ItemController extends Controller
      */
     public function index()
     {
-       $items = Item::paginate(10)->onEachSide(1);
-         return Inertia::render('Items',[
-            'items'=> ItemResource::collection($items)
-         ]);
+        $items = Item::with('categories')->paginate(10)->onEachSide(1);
+        // dd($items);
+        return Inertia::render('Items', [
+            'items' => ItemResource::collection($items)
+        ]);
     }
 
     /**

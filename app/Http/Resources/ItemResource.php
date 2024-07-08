@@ -4,9 +4,9 @@ namespace App\Http\Resources;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class ItemResource extends ResourceCollection
+class ItemResource extends JsonResource
 {
     /**
      * Transform the resource collection into an array.
@@ -20,7 +20,7 @@ class ItemResource extends ResourceCollection
             'name'=>$this->name,
             'stock'=>$this->stock,
             'created_at'=>(new Carbon($this->stock))->format('d-m-Y'),
-            'categories_id'=>$this->categories,
+            'category'=>$this->categories,
         ];
     }
 }

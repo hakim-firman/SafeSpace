@@ -25,12 +25,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Route::middleware(['auth','verified'])->group(function () {
+Route::middleware('auth')->group(function () {
     // Route::get('/items', function () {
 
     // })->name('items');
 
-    Route ::resource('items',ItemController::class)->names([
+    Route ::resource('/items',ItemController::class)->names([
         'index'=>'items',
         'create'=>'items.create',
         'update'=>'items.update',

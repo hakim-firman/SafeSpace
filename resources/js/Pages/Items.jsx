@@ -5,7 +5,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 import { Camera, CircleEllipsis, Ellipsis } from "lucide-react";
 // import { Camera } from 'lucide-react';
-export default function Dashboard({ auth,items }) {
+export default function Dashboard({ auth, items }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -27,80 +27,85 @@ export default function Dashboard({ auth,items }) {
                         </div>
                         <div className="bg-white w-full dark:bg-gray-800  shadow-sm sm:rounded-lg brutalism p-[2rem] dark:text-white hidden md:block">
                             <div className=" brutalism ">
-                                {/* <table class=" w-full  p-[2rem]">
+                                <table className=" w-full  p-[2rem]">
                                     <thead className="border-b-2 border-black">
                                         <tr>
-                                            <th class="w-20 p-3 text-sm font-semibold tracking-wide text-left">
+                                            <th className="w-20 p-3 text-sm font-semibold tracking-wide text-left">
                                                 No
                                             </th>
-                                            <th class="p-3 text-sm font-semibold tracking-wide text-left">
+                                            <th className="p-3 text-sm font-semibold tracking-wide text-left">
                                                 Name
                                             </th>
-                                            <th class="p-3 text-sm font-semibold tracking-wide text-left">
+                                            <th className="p-3 text-sm font-semibold tracking-wide text-left">
                                                 Category
                                             </th>
-                                            <th class="p-3 text-sm font-semibold tracking-wide text-left">
+                                            <th className="p-3 text-sm font-semibold tracking-wide text-left">
                                                 Stock
                                             </th>
 
-                                            <th class="p-3 text-sm font-semibold tracking-wide text-left">
+                                            <th className="p-3 text-sm font-semibold tracking-wide text-left">
                                                 Action
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y-2 divide-black ">
-                                        <tr>
-                                            <td class="p-3 text-sm whitespace-nowrap">
-                                                Indiana
-                                            </td>
-                                            <td class="p-3 text-sm whitespace-nowrap">
-                                                Sarimi
-                                            </td>
-                                            <td class="p-3 text-sm whitespace-nowrap">
-                                                <Bedge>Waiting</Bedge>
-                                            </td>
-
-                                            <td class="p-3 text-sm whitespace-nowrap">
-                                                30000
-                                            </td>
-                                            <td class="p-3 text-sm whitespace-nowrap">
-                                                <Dropdown>
-                                                    <Dropdown.Trigger>
-                                                        <span className="inline-flex rounded-md">
-                                                            <button
-                                                                type="button"
-                                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
+                                        {items.data.map((item, index) => (
+                                            <tr key={index}>
+                                                {" "}
+                                                {/* Gunakan index sebagai key */}
+                                                <td className="p-3 text-sm whitespace-nowrap">
+                                                    {index + 1}{" "}
+                                                    {/* Tambahkan 1 karena index dimulai dari 0 */}
+                                                </td>
+                                                <td className="p-3 text-sm whitespace-nowrap">
+                                                    {item.name}
+                                                </td>
+                                                <td className="p-3 text-sm whitespace-nowrap">
+                                                    <Bedge>
+                                                        {item.category.name}
+                                                    </Bedge>
+                                                </td>
+                                                <td className="p-3 text-sm whitespace-nowrap">
+                                                    30000
+                                                </td>
+                                                <td className="p-3 text-sm whitespace-nowrap">
+                                                    <Dropdown>
+                                                        <Dropdown.Trigger>
+                                                            <span className="inline-flex rounded-md">
+                                                                <button
+                                                                    type="button"
+                                                                    className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
+                                                                >
+                                                                    <CircleEllipsis />
+                                                                </button>
+                                                            </span>
+                                                        </Dropdown.Trigger>
+                                                        <Dropdown.Content>
+                                                            <Dropdown.Link
+                                                                href={route(
+                                                                    "profile.edit"
+                                                                )}
                                                             >
-                                                                <CircleEllipsis />
-                                                            </button>
-                                                        </span>
-                                                    </Dropdown.Trigger>
-
-                                                    <Dropdown.Content>
-                                                        <Dropdown.Link
-                                                            href={route(
-                                                                "profile.edit"
-                                                            )}
-                                                        >
-                                                            Edit
-                                                        </Dropdown.Link>
-                                                        <Dropdown.Link
-                                                            href={route(
-                                                                "logout"
-                                                            )}
-                                                            method="post"
-                                                            as="button"
-                                                        >
-                                                            Delete
-                                                        </Dropdown.Link>
-                                                    </Dropdown.Content>
-                                                </Dropdown>
-                                            </td>
-                                        </tr>
+                                                                Edit
+                                                            </Dropdown.Link>
+                                                            <Dropdown.Link
+                                                                href={route(
+                                                                    "logout"
+                                                                )}
+                                                                method="post"
+                                                                as="button"
+                                                            >
+                                                                Delete
+                                                            </Dropdown.Link>
+                                                        </Dropdown.Content>
+                                                    </Dropdown>
+                                                </td>
+                                            </tr>
+                                        ))}
                                     </tbody>
-                                </table> */}
+                                </table>
                                 <pre>
-                                    {JSON.stringify(items,undefined,1)}
+                                    {JSON.stringify(items.data, undefined, 1)}
                                 </pre>
                             </div>
                         </div>
