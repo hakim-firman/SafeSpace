@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -25,9 +26,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 Route::middleware(['auth','verified'])->group(function () {
-    Route::get('/items', function () {
-        return Inertia::render('Items');
-    })->name('items');
+    // Route::get('/items', function () {
+
+    // })->name('items');
+
+    Route ::resource('items',ItemController::class)->names([
+        'index'=>'items',
+        'create'=>'items.create',
+        'update'=>'items.update',
+        'destroy'=>'items.delete',
+    ]);
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');

@@ -1,10 +1,11 @@
 import Bedge from "@/Components/Bedge";
 import Dropdown from "@/Components/Dropdown";
+import PrimaryButton from "@/Components/PrimaryButton";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 import { Camera, CircleEllipsis, Ellipsis } from "lucide-react";
 // import { Camera } from 'lucide-react';
-export default function Dashboard({ auth }) {
+export default function Dashboard({ auth,items }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -17,80 +18,91 @@ export default function Dashboard({ auth }) {
             <Head title="Items" />
 
             <div className="py-12">
-                <div className="max-w-7xl mx-[1rem] md:mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800  shadow-sm sm:rounded-lg brutalism p-[2rem] dark:text-white hidden md:block">
-                        <div className=" brutalism ">
-                            <table class=" w-full  p-[2rem]">
-                                <thead className="bg-primary">
-                                    <tr>
-                                        <th class="w-20 p-3 text-sm font-semibold tracking-wide text-left">
-                                            No
-                                        </th>
-                                        <th class="p-3 text-sm font-semibold tracking-wide text-left">
-                                            Name
-                                        </th>
-                                        <th class="p-3 text-sm font-semibold tracking-wide text-left">
-                                            Category
-                                        </th>
-                                        <th class="p-3 text-sm font-semibold tracking-wide text-left">
-                                            Stock
-                                        </th>
+                <div className="lg:max-w-7xl mx-[1rem] md:mx-auto sm:px-6 lg:px-8 bg-red-300">
+                    <div className="flex gap-2 bg-slate-400">
+                        <div className="bg-white dark:bg-gray-800 w-fit  shadow-sm sm:rounded-lg brutalism p-[2rem] dark:text-white hidden md:block">
+                            <PrimaryButton>ssdd</PrimaryButton>
+                            <PrimaryButton>sdsd</PrimaryButton>
+                            <PrimaryButton>sdsd</PrimaryButton>
+                        </div>
+                        <div className="bg-white w-full dark:bg-gray-800  shadow-sm sm:rounded-lg brutalism p-[2rem] dark:text-white hidden md:block">
+                            <div className=" brutalism ">
+                                {/* <table class=" w-full  p-[2rem]">
+                                    <thead className="border-b-2 border-black">
+                                        <tr>
+                                            <th class="w-20 p-3 text-sm font-semibold tracking-wide text-left">
+                                                No
+                                            </th>
+                                            <th class="p-3 text-sm font-semibold tracking-wide text-left">
+                                                Name
+                                            </th>
+                                            <th class="p-3 text-sm font-semibold tracking-wide text-left">
+                                                Category
+                                            </th>
+                                            <th class="p-3 text-sm font-semibold tracking-wide text-left">
+                                                Stock
+                                            </th>
 
-                                        <th class="p-3 text-sm font-semibold tracking-wide text-left">
-                                            Action
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody className="divide-y-2 divide-black ">
-                                    <tr>
-                                        <td class="p-3 text-sm whitespace-nowrap">
-                                            Indiana
-                                        </td>
-                                        <td class="p-3 text-sm whitespace-nowrap">
-                                            Sarimi
-                                        </td>
-                                        <td class="p-3 text-sm whitespace-nowrap">
+                                            <th class="p-3 text-sm font-semibold tracking-wide text-left">
+                                                Action
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="divide-y-2 divide-black ">
+                                        <tr>
+                                            <td class="p-3 text-sm whitespace-nowrap">
+                                                Indiana
+                                            </td>
+                                            <td class="p-3 text-sm whitespace-nowrap">
+                                                Sarimi
+                                            </td>
+                                            <td class="p-3 text-sm whitespace-nowrap">
+                                                <Bedge>Waiting</Bedge>
+                                            </td>
 
-                                            <Bedge>Waiting</Bedge>
-                                        </td>
+                                            <td class="p-3 text-sm whitespace-nowrap">
+                                                30000
+                                            </td>
+                                            <td class="p-3 text-sm whitespace-nowrap">
+                                                <Dropdown>
+                                                    <Dropdown.Trigger>
+                                                        <span className="inline-flex rounded-md">
+                                                            <button
+                                                                type="button"
+                                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
+                                                            >
+                                                                <CircleEllipsis />
+                                                            </button>
+                                                        </span>
+                                                    </Dropdown.Trigger>
 
-                                        <td class="p-3 text-sm whitespace-nowrap">
-                                            30000
-                                        </td>
-                                        <td class="p-3 text-sm whitespace-nowrap">
-                                            <Dropdown>
-                                                <Dropdown.Trigger>
-                                                    <span className="inline-flex rounded-md">
-                                                        <button
-                                                            type="button"
-                                                            className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
+                                                    <Dropdown.Content>
+                                                        <Dropdown.Link
+                                                            href={route(
+                                                                "profile.edit"
+                                                            )}
                                                         >
-                                                            <CircleEllipsis />
-                                                        </button>
-                                                    </span>
-                                                </Dropdown.Trigger>
-
-                                                <Dropdown.Content>
-                                                    <Dropdown.Link
-                                                        href={route(
-                                                            "profile.edit"
-                                                        )}
-                                                    >
-                                                        Edit
-                                                    </Dropdown.Link>
-                                                    <Dropdown.Link
-                                                        href={route("logout")}
-                                                        method="post"
-                                                        as="button"
-                                                    >
-                                                        Delete
-                                                    </Dropdown.Link>
-                                                </Dropdown.Content>
-                                            </Dropdown>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                                            Edit
+                                                        </Dropdown.Link>
+                                                        <Dropdown.Link
+                                                            href={route(
+                                                                "logout"
+                                                            )}
+                                                            method="post"
+                                                            as="button"
+                                                        >
+                                                            Delete
+                                                        </Dropdown.Link>
+                                                    </Dropdown.Content>
+                                                </Dropdown>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table> */}
+                                <pre>
+                                    {JSON.stringify(items,undefined,1)}
+                                </pre>
+                            </div>
                         </div>
                     </div>
                     <div className="grid grid-cols-1 gap-4 md:hidden">
@@ -117,8 +129,7 @@ export default function Dashboard({ auth }) {
                                     </div>
                                 </div>
                                 <div className="flex items-center justify-center gap-2  ">
-
-                                 <div className="hidden sm:block">
+                                    <div className="hidden sm:block">
                                         <a
                                             href=""
                                             className="text-primary font-bold hover:underline"
@@ -126,33 +137,35 @@ export default function Dashboard({ auth }) {
                                             Stock: #1000
                                         </a>
                                     </div>
-                                <Dropdown>
-                                    <Dropdown.Trigger>
-                                        <span className="inline-flex rounded-md">
-                                            <button
-                                                type="button"
-                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
-                                            >
-                                               <Ellipsis strokeWidth={2.25} />
-                                            </button>
-                                        </span>
-                                    </Dropdown.Trigger>
+                                    <Dropdown>
+                                        <Dropdown.Trigger>
+                                            <span className="inline-flex rounded-md">
+                                                <button
+                                                    type="button"
+                                                    className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
+                                                >
+                                                    <Ellipsis
+                                                        strokeWidth={2.25}
+                                                    />
+                                                </button>
+                                            </span>
+                                        </Dropdown.Trigger>
 
-                                    <Dropdown.Content>
-                                        <Dropdown.Link
-                                            href={route("profile.edit")}
-                                        >
-                                            Edit
-                                        </Dropdown.Link>
-                                        <Dropdown.Link
-                                            href={route("logout")}
-                                            method="post"
-                                            as="button"
-                                        >
-                                            Delete
-                                        </Dropdown.Link>
-                                    </Dropdown.Content>
-                                </Dropdown>
+                                        <Dropdown.Content>
+                                            <Dropdown.Link
+                                                href={route("profile.edit")}
+                                            >
+                                                Edit
+                                            </Dropdown.Link>
+                                            <Dropdown.Link
+                                                href={route("logout")}
+                                                method="post"
+                                                as="button"
+                                            >
+                                                Delete
+                                            </Dropdown.Link>
+                                        </Dropdown.Content>
+                                    </Dropdown>
                                 </div>
                             </div>
 
