@@ -17,7 +17,7 @@ class ItemController extends Controller
     {
         $items = Item::with('categories')->paginate(10)->onEachSide(1);
         // dd($items);
-        return Inertia::render('Items', [
+        return Inertia::render('ItemList/Items', [
             'items' => ItemResource::collection($items)
         ]);
     }
