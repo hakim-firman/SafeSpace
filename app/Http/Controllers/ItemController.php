@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CategoryResource;
 use App\Http\Resources\ItemResource;
+use App\Models\Category;
 use App\Models\Item;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -15,10 +17,22 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::with('categories')->paginate(10)->onEachSide(1);
-        // dd($items);
+        $categories = Category::all();
+        $query = Item::with('categories');
+      
+        if (request("name")) {
+             $query->where('name','like','%'.request("name").'%');
+        }
+        if (request("categories_id")) {
+          $query->where('categories_id',request("categories_id"));
+        }
+        $items=$query->paginate(10)->onEachSide(1);
+
+      
         return Inertia::render('ItemList/Items', [
-            'items' => ItemResource::collection($items)
+            'items' => ItemResource::collection($items),
+            'queryParams'=> request()->query()?:Null,
+            'categories'=>CategoryResource::collection($categories)
         ]);
     }
 
@@ -51,7 +65,7 @@ class ItemController extends Controller
      */
     public function edit(Item $item)
     {
-        //
+        dd("erdit coi");
     }
 
     /**
@@ -67,6 +81,6 @@ class ItemController extends Controller
      */
     public function destroy(Item $item)
     {
-        //
+        dd("berhasil hapus");
     }
 }

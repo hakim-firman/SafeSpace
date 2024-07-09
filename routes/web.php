@@ -34,6 +34,7 @@ Route::middleware(['auth','verified'])->group(function () {
         'index'=>'items',
         'create'=>'items.create',
         'update'=>'items.update',
+        'edit'=>'items.edit',
         'destroy'=>'items.delete',
     ]);
     Route::get('/dashboard', function () {

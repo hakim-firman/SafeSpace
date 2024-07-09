@@ -17,9 +17,10 @@ class ItemResource extends JsonResource
     {
         return [
             'id'=>$this->id,
+            'code'=>$this->code,
             'name'=>$this->name,
             'stock'=>$this->stock,
-            'created_at'=>(new Carbon($this->stock))->format('d-m-Y'),
+            'created_at'=>(new Carbon($this->created_at))->format('d-m-Y'),
             'category'=>$this->categories,
         ];
     }

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
+            $table->string('code')->unique();
             $table->string('name');
             $table->string('stock');
             $table->foreignId('categories_id')->constrained(table:'categories',indexName:'id_items_cateogies')->onUpdate('cascade')->onDelete('cascade');
