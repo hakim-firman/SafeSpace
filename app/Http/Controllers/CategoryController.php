@@ -16,7 +16,7 @@ class CategoryController extends Controller
     {   
         $data = Category::query();
         $sortFields = request('sort_field','id');
-        $sortDirection = request('sort_direction','desc');
+        $sortDirection = request('sort_direction','asc');
         if (request("name")) {
              $data->where('name','like','%'.request("name").'%');
         }

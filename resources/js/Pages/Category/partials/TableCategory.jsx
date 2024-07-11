@@ -6,38 +6,49 @@ import Pagination from "@/Components/Pagination";
 import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
 import TableHeading from "@/Components/TableHeading";
+import { Link } from "@inertiajs/react";
 import { ChevronDown, ChevronUp, CircleEllipsis } from "lucide-react";
 import React from "react";
 
-const TableCategory = ({ categories,confirmDeletion, sortChanged, queryParams }) => {
+const TableCategory = ({
+    categories,
+    confirmDeletion,
+    sortChanged,
+    queryParams,
+}) => {
     return (
         <table className=" w-full  p-[2rem]">
             <thead className="border-b-2 border-black">
                 <tr>
-                <th className="p-3 w-20 text-sm font-semibold tracking-wide text-left">
+                    <th className="p-3 w-20 text-sm font-semibold tracking-wide text-left">
                         #
                     </th>
-                <TableHeading
-                            name="name"
-                            className=""
-                            sort_field={queryParams.sort_field}
-                            sort_direction={queryParams.sort_direction}
-                            sortChanged={sortChanged}
-                        >Name</TableHeading>
-                   
+                    <TableHeading
+                        name="name"
+                        className=""
+                        sort_field={queryParams.sort_field}
+                        sort_direction={queryParams.sort_direction}
+                        sortChanged={sortChanged}
+                    >
+                        Name
+                    </TableHeading>
+
                     <th className="p-3 w-20 text-sm font-semibold tracking-wide text-left">
                         Action
                     </th>
                 </tr>
             </thead>
             <tbody className="divide-y-[1px] divide-black ">
-                {categories.data.map((category,index) => (
-                    <tr key={index} className=" hover:bg-slate-900">
+                {categories.data.map((category, index) => (
+                    <tr
+                        key={index}
+                        className=" dark:hover:bg-slate-900 hover:bg-slate-100"
+                    >
                         <td className="p-3 text-sm whitespace-nowrap text-green-500 font-bold">
-                            {index+1}
+                            {index + 1}
                         </td>
-                        <td className="p-3 text-sm whitespace-nowrap">
-                            {category.name}
+                        <td className="p-3 text-sm whitespace-nowrap ">
+                            <Link className="hover:border-b-2 border-primary" href={'/items?categories_id='+category.id}>{category.name}</Link>
                         </td>
 
                         <td className="p-3 text-sm whitespace-nowrap">
@@ -62,7 +73,6 @@ const TableCategory = ({ categories,confirmDeletion, sortChanged, queryParams })
                                     >
                                         Edit
                                     </Dropdown.Link>
-                                 
                                 </Dropdown.Content>
                             </Dropdown>
                         </td>
