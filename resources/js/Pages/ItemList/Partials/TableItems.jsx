@@ -5,30 +5,58 @@ import Modal from "@/Components/Modal";
 import Pagination from "@/Components/Pagination";
 import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
-import { CircleEllipsis } from "lucide-react";
+import TableHeading from "@/Components/TableHeading";
+import { ChevronDown, ChevronUp, CircleEllipsis } from "lucide-react";
 import React from "react";
 
-const TableItems = ({ items, confirmDeletion }) => {
+const TableItems = ({ items, confirmDeletion, sortChanged, queryParams }) => {
     return (
         <>
             <table className=" w-full  p-[2rem]">
                 <thead className="border-b-2 border-black">
                     <tr>
-                        <th className="w-25 p-3 text-sm font-semibold tracking-wide text-left">
+                        <TableHeading
+                            name="code"
+                            className="w-25"
+                            sort_field={queryParams.sort_field}
+                            sort_direction={queryParams.sort_direction}
+                            sortChanged={sortChanged}
+                        >
                             Code
-                        </th>
-                        <th className="p-3 text-sm font-semibold tracking-wide text-left">
+                        </TableHeading>
+                        <TableHeading
+                            name="name"
+                            sort_field={queryParams.sort_field}
+                            sort_direction={queryParams.sort_direction}
+                            sortChanged={sortChanged}
+                        >
                             Name
-                        </th>
-                        <th className="p-3 text-sm font-semibold tracking-wide text-left">
+                        </TableHeading>
+                        <TableHeading
+                            name="categories_id"
+                            sort_field={queryParams.sort_field}
+                            sort_direction={queryParams.sort_direction}
+                            sortChanged={sortChanged}
+                        >
                             Category
-                        </th>
-                        <th className="p-3 text-sm font-semibold tracking-wide text-left">
+                        </TableHeading>
+                        <TableHeading
+                            name="stock"
+                            sort_field={queryParams.sort_field}
+                            sort_direction={queryParams.sort_direction}
+                            sortChanged={sortChanged}
+                        >
                             Stock
-                        </th>
-                        <th className="p-3 text-sm font-semibold tracking-wide text-left">
-                            Created date
-                        </th>
+                        </TableHeading>
+                        <TableHeading
+                            name="created_at"
+                            sort_field={queryParams.sort_field}
+                            sort_direction={queryParams.sort_direction}
+                            sortChanged={sortChanged}
+                        >
+                            Created Date
+                        </TableHeading>
+
 
                         <th className="p-3 w-20 text-sm font-semibold tracking-wide text-left">
                             Action
@@ -54,7 +82,7 @@ const TableItems = ({ items, confirmDeletion }) => {
                                 {item.created_at}
                             </td>
                             <td className="p-3 text-sm whitespace-nowrap">
-                                <Dropdown >
+                                <Dropdown>
                                     <Dropdown.Trigger className="bg-green-500">
                                         <span className="inline-flex rounded-md">
                                             <button
@@ -91,7 +119,6 @@ const TableItems = ({ items, confirmDeletion }) => {
                     ))}
                 </tbody>
             </table>
-            
         </>
     );
 };

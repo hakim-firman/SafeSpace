@@ -81,7 +81,21 @@ export default function Dashboard({
     const resetFilter = () => {
         router.get(route("items"));
     };
+    const sortChanged = (name)=>{
+        if (name === queryParams.sort_field){
+            if(queryParams.sort_direction === 'asc'){
+                queryParams.sort_direction ='desc'
+            }else{
+                 queryParams.sort_direction ='asc'
+            }
+            router.get(route("items"), queryParams);
+        }else{
+            queryParams.sort_field = name;
+            queryParams.sort_direction = 'asc';
+            router.get(route("items"), queryParams);
 
+        }
+    }
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -99,7 +113,7 @@ export default function Dashboard({
                         resetFilter={resetFilter}
                     />
                     </div>
-                 
+
                 </div>
             }
         >
@@ -134,6 +148,8 @@ export default function Dashboard({
                                 <TableItems
                                     items={items}
                                     confirmDeletion={confirmDeletion}
+                                    sortChanged ={sortChanged }
+                                    queryParams={queryParams}
                                 />
                             </div>
                             <Pagination links={items.meta.links} />

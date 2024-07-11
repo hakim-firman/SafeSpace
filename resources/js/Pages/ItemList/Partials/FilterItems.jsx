@@ -25,8 +25,8 @@ const FilterItems = ({  queryParams,searchFieldChanged,onKeyPress ,categories,re
                         searchFieldChanged("categories_id", e.target.value)
                     }
                 >
-                    <option disabled selected value="">
-                        Category
+                    <option  selected value="">
+                        All Category
                     </option>
                     {categories.data.map((category) => (
                         <option value={category.id}>{category.name}</option>

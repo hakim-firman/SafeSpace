@@ -19,16 +19,18 @@ class ItemController extends Controller
     {
         $categories = Category::all();
         $query = Item::with('categories');
-      
+        $sortFields = request('sort_field','created_at');
+        $sortDirection = request('sort_direction','desc');
+
         if (request("name")) {
              $query->where('name','like','%'.request("name").'%');
         }
         if (request("categories_id")) {
           $query->where('categories_id',request("categories_id"));
         }
-        $items=$query->paginate(10)->onEachSide(1);
+        $items=$query->orderBy($sortFields,$sortDirection)->paginate(10)->onEachSide(1);
 
-      
+
         return Inertia::render('ItemList/Items', [
             'items' => ItemResource::collection($items),
             'queryParams'=> request()->query()?:Null,
