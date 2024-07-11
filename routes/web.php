@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -36,6 +37,12 @@ Route::middleware(['auth','verified'])->group(function () {
         'update'=>'items.update',
         'edit'=>'items.edit',
         'destroy'=>'items.delete',
+    ]);
+    Route::resource('categories',CategoryController::class)->names([
+    'index'=>'categories',
+    'create'=>'categories.create',
+    'update'=>'categories.update',
+    'edit'=>'categories.edit',
     ]);
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');

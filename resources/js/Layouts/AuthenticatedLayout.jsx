@@ -26,7 +26,10 @@ export default function Authenticated({ user, header, children }) {
                                     Dashboard
                                 </NavLink>
                                 <NavLink href={route('items')} active={route().current('items')}>
-                                    Barang
+                                    Items
+                                </NavLink>
+                                <NavLink href={route('categories')} active={route().current('categories')}>
+                                    Category
                                 </NavLink>
                             </div>
                         </div>
@@ -101,6 +104,9 @@ export default function Authenticated({ user, header, children }) {
                         </ResponsiveNavLink>
                         <ResponsiveNavLink href={route('items')} active={route().current('items')}>
                             Items
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink href={route('categories')} active={route().current('categories')}>
+                            Categories
                         </ResponsiveNavLink>
                     </div>
 
