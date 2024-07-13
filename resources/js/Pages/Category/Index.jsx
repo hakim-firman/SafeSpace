@@ -8,22 +8,23 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router, useForm } from "@inertiajs/react";
 import { Camera, CircleEllipsis, Ellipsis, RefreshCw } from "lucide-react";
 import { useRef, useState } from "react";
-import TableItems from "./Partials/TableItems";
-import CardItems from "./Partials/CardItems";
 import TextInput from "@/Components/TextInput";
 import Pagination from "@/Components/Pagination";
 import SelectInput from "@/Components/SelectInput";
-import FilterItems from "./Partials/FilterItems";
+import TableCategory from "./partials/TableCategory";
+import FilterCategory from "./partials/FilterCategory";
+import CardCategory from "./partials/CardCategory";
+import TableHeading from "@/Components/TableHeading";
 // import { Camera } from 'lucide-react';
-export default function Items({
+export default function Index({
     auth,
-    items,
-    queryParams = null,
     categories,
+    queryParams = null,
+
 }) {
     const [confirmingDeletion, setConfirmingDeletion] = useState(false);
-    const [itemDelete, setItemDelete] = useState();
-    const [itemDeleteName, setItemDeleteName] = useState();
+    const [categoryDelete, setCategoryDelete] = useState();
+    const [categoryDeleteName, setCategoryDeleteName] = useState();
     const passwordInput = useRef();
 
     const {
@@ -37,18 +38,17 @@ export default function Items({
         password: "",
     });
 
-    const confirmDeletion = (e, item, name) => {
+    const confirmDeletion = (e, category, name) => {
         e.preventDefault();
         setConfirmingDeletion(true);
-        setItemDelete(item);
-        setItemDeleteName(name);
-        console.log(item);
+        setCategoryDelete(category);
+        setCategoryDeleteName(name);
+        console.log(category);
     };
 
     const delteItem = (e) => {
         e.preventDefault();
-
-        destroy(route("items.delete", itemDelete), {
+        destroy(route("category.delete", categoryDelete), {
             preserveScroll: true,
             onSuccess: () => closeModal(),
             onError: () => alert("error"),
@@ -59,8 +59,8 @@ export default function Items({
 
     const closeModal = () => {
         setConfirmingDeletion(false);
-        setItemDelete("");
-        setItemDeleteName("");
+        setCategoryDelete("");
+        setCategoryDeleteName("");
         reset();
     };
     queryParams = queryParams || {};
@@ -71,7 +71,7 @@ export default function Items({
             delete queryParams[name];
         }
         console.log(queryParams);
-        router.get(route("items"), queryParams);
+        router.get(route("categories"), queryParams);
     };
     const onKeyPress = (name, e) => {
         if (e.key != "Enter") return;
@@ -79,7 +79,7 @@ export default function Items({
         searchFieldChanged(name, e.target.value);
     };
     const resetFilter = () => {
-        router.get(route("items"));
+        router.get(route("categories"));
     };
     const sortChanged = (name)=>{
         if (name === queryParams.sort_field){
@@ -88,11 +88,11 @@ export default function Items({
             }else{
                  queryParams.sort_direction ='asc'
             }
-            router.get(route("items"), queryParams);
+            router.get(route("categories"), queryParams);
         }else{
             queryParams.sort_field = name;
             queryParams.sort_direction = 'asc';
-            router.get(route("items"), queryParams);
+            router.get(route("categories"), queryParams);
 
         }
     }
@@ -102,10 +102,10 @@ export default function Items({
             header={
                 <div className="flex justify-between items-center ">
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                        Item List
+                        Category List
                     </h2>
                     <div className="hidden md:block">
-                    <FilterItems
+                    <FilterCategory
                         queryParams={queryParams}
                         searchFieldChanged={searchFieldChanged}
                         onKeyPress={onKeyPress}
@@ -117,10 +117,10 @@ export default function Items({
                 </div>
             }
         >
-            <Head title="Items" />
+            <Head title="Category" />
 
             <div className="py-12">
-                <div className="lg:max-w-7xl mx-[1rem] md:mx-auto sm:px-6 lg:px-8 ">
+                <div className="lg:max-w-3xl mx-[1rem] md:mx-auto sm:px-6 lg:px-8 ">
                     <div className="flex gap-6 ">
                         {/* <div className="bg-white  dark:bg-gray-800 w-fit  shadow-sm sm:rounded-lg brutalism p-[2rem] dark:text-white hidden md:block">
                             <div className="flex flex-col gap-2">
@@ -145,96 +145,36 @@ export default function Items({
                         </div> */}
                         <div className="bg-white w-full dark:bg-gray-800  shadow-sm sm:rounded-lg brutalism p-[2rem] dark:text-white hidden md:block">
                             <div className=" brutalism rounded-sm ">
-                                <TableItems
-                                    items={items}
+                                <TableCategory
+                                    categories={categories}
                                     confirmDeletion={confirmDeletion}
                                     sortChanged ={sortChanged }
                                     queryParams={queryParams}
                                 />
                             </div>
-                            <Pagination links={items.meta.links} />
+                            <Pagination links={categories.meta.links} />
                         </div>
                     </div>
                     <div className="grid grid-cols-1 gap-4 md:hidden">
                         <div className="bg-white w-full flex flex-row items-center p-[1rem] mt-0 justify-center dark:bg-gray-800  shadow-sm sm:rounded-lg brutalism  dark:text-white">
-                            <FilterItems
+                            <FilterCategory
                                 queryParams={queryParams}
                                 searchFieldChanged={searchFieldChanged}
                                 onKeyPress={onKeyPress}
                                 categories={categories}
                                 resetFilter={resetFilter}
                             />
+                            
                         </div>
-                        <CardItems
-                            items={items}
+                        <CardCategory
+                            categories={categories}
                             confirmDeletion={confirmDeletion}
                         />
                         <div className="bg-white w-full flex flex-row items-center pb-[1rem] justify-center dark:bg-gray-800  shadow-sm sm:rounded-lg brutalism  dark:text-white ">
-                            <Pagination links={items.meta.links} />
+                            <Pagination links={categories.meta.links} />
                         </div>
                     </div>
-                    <Modal
-                        show={confirmingDeletion}
-                        onClose={closeModal}
-                        className=""
-                    >
-                        <form onSubmit={delteItem} className="p-6">
-                            <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
-                                Are you sure you want to delete{" "}
-                                <span className="font-bold text-destructive">
-                                    {itemDeleteName}
-                                </span>
-                                ?
-                            </h2>
 
-                            <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                                Once your account is deleted, all of its
-                                resources and data will be permanently deleted.
-                                Please enter your password to confirm you would
-                                like to permanently delete your account.
-                            </p>
-
-                            {/* <div className="mt-6">
-                                <InputLabel
-                                    htmlFor="password"
-                                    value="Password"
-                                    className="sr-only"
-                                />
-
-                                <TextInput
-                                    id="password"
-                                    type="password"
-                                    name="password"
-                                    ref={passwordInput}
-                                    value={data.password}
-                                    onChange={(e) =>
-                                        setData("password", e.target.value)
-                                    }
-                                    className="mt-1 block w-3/4"
-                                    isFocused
-                                    placeholder="Password"
-                                />
-
-                                <InputError
-                                    message={errors.password}
-                                    className="mt-2"
-                                />
-                            </div> */}
-
-                            <div className="mt-6 flex justify-end">
-                                <SecondaryButton onClick={closeModal}>
-                                    Cancel
-                                </SecondaryButton>
-
-                                <DangerButton
-                                    className="ms-3"
-                                    disabled={processing}
-                                >
-                                    Delete Items
-                                </DangerButton>
-                            </div>
-                        </form>
-                    </Modal>
                 </div>
             </div>
         </AuthenticatedLayout>

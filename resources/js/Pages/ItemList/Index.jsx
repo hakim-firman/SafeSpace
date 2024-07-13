@@ -15,7 +15,7 @@ import Pagination from "@/Components/Pagination";
 import SelectInput from "@/Components/SelectInput";
 import FilterItems from "./Partials/FilterItems";
 // import { Camera } from 'lucide-react';
-export default function Items({
+export default function Index({
     auth,
     items,
     queryParams = null,
@@ -122,27 +122,6 @@ export default function Items({
             <div className="py-12">
                 <div className="lg:max-w-7xl mx-[1rem] md:mx-auto sm:px-6 lg:px-8 ">
                     <div className="flex gap-6 ">
-                        {/* <div className="bg-white  dark:bg-gray-800 w-fit  shadow-sm sm:rounded-lg brutalism p-[2rem] dark:text-white hidden md:block">
-                            <div className="flex flex-col gap-2">
-                                <h2 className="text-xl">Filter</h2>
-                                <div className="flex gap-1 flex-wrap">
-                                    <PrimaryButton>Name</PrimaryButton>
-                                    <PrimaryButton>Category</PrimaryButton>
-                                    <div className="flex flex-row gap-2">
-                                        <TextInput
-                                            id="search"
-                                            type="search"
-                                            name="password"
-                                            placeholder="search here"
-                                            className="mt-1 block w-full"
-                                        />
-                                        <SecondaryButton>
-                                            Search
-                                        </SecondaryButton>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> */}
                         <div className="bg-white w-full dark:bg-gray-800  shadow-sm sm:rounded-lg brutalism p-[2rem] dark:text-white hidden md:block">
                             <div className=" brutalism rounded-sm ">
                                 <TableItems

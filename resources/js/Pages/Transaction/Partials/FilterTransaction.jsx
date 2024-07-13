@@ -5,7 +5,7 @@ import { RefreshCw } from "lucide-react";
 import React from "react";
 
 
-const FilterItems = ({  queryParams,searchFieldChanged,onKeyPress ,categories,resetFilter }) => {
+const FilterTransaction = ({  queryParams,searchFieldChanged,onKeyPress ,resetFilter }) => {
     return (
         <>
             <div className="flex flex-row gap-2 items-center justify-center">
@@ -14,12 +14,12 @@ const FilterItems = ({  queryParams,searchFieldChanged,onKeyPress ,categories,re
                     type="search"
                     name="password"
                     placeholder="Item name"
-                    defaultValue={queryParams.name}
+                    defaultValue={queryParams.items_name}
                     className=" block w-full"
-                    onBlur={(e) => searchFieldChanged("name", e.target.value)}
-                    onKeyPress={(e) => onKeyPress("name", e)}
+                    onBlur={(e) => searchFieldChanged("items_name", e.target.value)}
+                    onKeyPress={(e) => onKeyPress("items_name", e)}
                 />
-                <SelectInput
+                {/* <SelectInput
                     defaultValue={queryParams.categories_id}
                     onChange={(e) =>
                         searchFieldChanged("categories_id", e.target.value)
@@ -31,7 +31,7 @@ const FilterItems = ({  queryParams,searchFieldChanged,onKeyPress ,categories,re
                     {categories.data.map((category) => (
                         <option value={category.id}>{category.name}</option>
                     ))}
-                </SelectInput>
+                </SelectInput> */}
                 <PrimaryButton onClick={resetFilter}>
                     <RefreshCw size={24} />
                 </PrimaryButton>
@@ -40,4 +40,4 @@ const FilterItems = ({  queryParams,searchFieldChanged,onKeyPress ,categories,re
     );
 };
 
-export default FilterItems;
+export default FilterTransaction;

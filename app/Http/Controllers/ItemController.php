@@ -31,7 +31,7 @@ class ItemController extends Controller
         $items=$query->orderBy($sortFields,$sortDirection)->paginate(10)->onEachSide(1);
 
 
-        return Inertia::render('ItemList/Items', [
+        return Inertia::render('ItemList/Index', [
             'items' => ItemResource::collection($items),
             'queryParams'=> request()->query()?:Null,
             'categories'=>CategoryResource::collection($categories)

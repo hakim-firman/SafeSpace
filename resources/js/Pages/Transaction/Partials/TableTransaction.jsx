@@ -1,3 +1,4 @@
+import ActionButton from "@/Components/ActionButton";
 import Bedge from "@/Components/Bedge";
 import DangerButton from "@/Components/DangerButton";
 import Dropdown from "@/Components/Dropdown";
@@ -9,14 +10,14 @@ import TableHeading from "@/Components/TableHeading";
 import { ChevronDown, ChevronUp, CircleEllipsis } from "lucide-react";
 import React from "react";
 
-const TableItems = ({ items, confirmDeletion, sortChanged, queryParams }) => {
+const TableTransaction = ({ transactions, confirmDeletion, sortChanged, queryParams }) => {
     return (
         <>
-            <table className=" w-full  p-[2rem]">
+            <table className=" w-full  p-[2rem]  ">
                 <thead className="border-b-2 border-black">
                     <tr>
                         <TableHeading
-                            name="code"
+                            name="transactions.code"
                             className="w-25"
                             sort_field={queryParams.sort_field}
                             sort_direction={queryParams.sort_direction}
@@ -25,36 +26,46 @@ const TableItems = ({ items, confirmDeletion, sortChanged, queryParams }) => {
                             Code
                         </TableHeading>
                         <TableHeading
-                            name="name"
+                            name="items.name"
                             sort_field={queryParams.sort_field}
                             sort_direction={queryParams.sort_direction}
                             sortChanged={sortChanged}
                         >
-                            Name
+                            Items Name
                         </TableHeading>
                         <TableHeading
-                            name="categories_id"
+                        className={" w-0"}
+                            name="type"
                             sort_field={queryParams.sort_field}
                             sort_direction={queryParams.sort_direction}
                             sortChanged={sortChanged}
                         >
-                            Category
+                            Type
                         </TableHeading>
                         <TableHeading
-                            name="stock"
+                        className={'w-1'}
+                            name="quantity"
                             sort_field={queryParams.sort_field}
                             sort_direction={queryParams.sort_direction}
                             sortChanged={sortChanged}
                         >
-                            Stock
+                            Qty
                         </TableHeading>
                         <TableHeading
-                            name="created_at"
+                            name="note"
                             sort_field={queryParams.sort_field}
                             sort_direction={queryParams.sort_direction}
                             sortChanged={sortChanged}
                         >
-                            Created Date
+                            Note
+                        </TableHeading>
+                        <TableHeading
+                            name="date"
+                            sort_field={queryParams.sort_field}
+                            sort_direction={queryParams.sort_direction}
+                            sortChanged={sortChanged}
+                        >
+                            Date
                         </TableHeading>
 
 
@@ -64,25 +75,30 @@ const TableItems = ({ items, confirmDeletion, sortChanged, queryParams }) => {
                     </tr>
                 </thead>
                 <tbody className="divide-y-[1px] divide-black ">
-                    {items.data.map((item, index) => (
+
+                    {transactions.data.map((transaction, index) => (
                         <tr key={index} className=" dark:hover:bg-slate-900 hover:bg-slate-100">
                             <td className="p-3 text-sm whitespace-nowrap text-green-500 font-bold">
-                                {item.code}
+                                {transaction.code}
                             </td>
                             <td className="p-3 text-sm whitespace-nowrap">
-                                {item.name}
+                                {transaction.items.name}
                             </td>
                             <td className="p-3 text-sm whitespace-nowrap">
-                                <Bedge>{item.category.name}</Bedge>
+                                <Bedge>{transaction.type}</Bedge>
                             </td>
                             <td className="p-3 text-sm whitespace-nowrap">
-                                {item.stock}
+                                {transaction.quantity}
                             </td>
                             <td className="p-3 text-sm whitespace-nowrap">
-                                {item.created_at}
+                                {transaction.note}
                             </td>
                             <td className="p-3 text-sm whitespace-nowrap">
-                                <Dropdown>
+                                {transaction.date}
+                            </td>
+                            <td className="p-3 text-sm whitespace-nowrap">
+                            {/* <ActionButton url="transactions.edit" dataId={transaction.id} dataName={transaction.items.name} confirmDeletion={confirmDeletion}/> */}
+                                <Dropdown className="z-50">
                                     <Dropdown.Trigger className="bg-green-500">
                                         <span className="inline-flex rounded-md">
                                             <button
@@ -95,8 +111,8 @@ const TableItems = ({ items, confirmDeletion, sortChanged, queryParams }) => {
                                     </Dropdown.Trigger>
                                     <Dropdown.Content>
                                         <Dropdown.Link
-                                            ro
-                                            href={route("items.edit", item.id)}
+                                            
+                                            href={route("transactions.edit", transaction.id)}
                                         >
                                             Edit
                                         </Dropdown.Link>
@@ -104,8 +120,8 @@ const TableItems = ({ items, confirmDeletion, sortChanged, queryParams }) => {
                                             onClick={(e) =>
                                                 confirmDeletion(
                                                     e,
-                                                    item.id,
-                                                    item.name
+                                                    transaction.id,
+                                                    transaction.items.name
                                                 )
                                             }
                                             as="button"
@@ -116,6 +132,7 @@ const TableItems = ({ items, confirmDeletion, sortChanged, queryParams }) => {
                                 </Dropdown>
                             </td>
                         </tr>
+
                     ))}
                 </tbody>
             </table>
@@ -123,4 +140,4 @@ const TableItems = ({ items, confirmDeletion, sortChanged, queryParams }) => {
     );
 };
 
-export default TableItems;
+export default TableTransaction;

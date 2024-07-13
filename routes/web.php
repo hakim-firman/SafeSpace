@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -44,6 +45,13 @@ Route::middleware(['auth','verified'])->group(function () {
     'update'=>'categories.update',
     'edit'=>'categories.edit',
     ]);
+    Route::resource('transactions',TransactionController::class)->names([
+        'index'=>'transactions',
+        'create'=>'transactions.create',
+        'update'=>'transactions.update',
+        'edit'=>'transactions.edit',
+        'destroy'=>'transactions.delete',
+        ]);
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');

@@ -13,7 +13,7 @@ class CategoryController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {   
+    {
         $data = Category::query();
         $sortFields = request('sort_field','id');
         $sortDirection = request('sort_direction','asc');
@@ -23,7 +23,7 @@ class CategoryController extends Controller
 
         $categories = $data->orderBy($sortFields,$sortDirection)->paginate(10)->onEachSide(1);
 
-        return Inertia::render('Category/Category',[
+        return Inertia::render('Category/Index',[
             'categories' => CategoryResource::collection($categories),
             'queryParams'=> request()->query()?:Null,
         ]);

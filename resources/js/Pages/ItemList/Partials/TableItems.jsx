@@ -1,3 +1,4 @@
+import ActionButton from "@/Components/ActionButton";
 import Bedge from "@/Components/Bedge";
 import DangerButton from "@/Components/DangerButton";
 import Dropdown from "@/Components/Dropdown";
@@ -10,9 +11,10 @@ import { ChevronDown, ChevronUp, CircleEllipsis } from "lucide-react";
 import React from "react";
 
 const TableItems = ({ items, confirmDeletion, sortChanged, queryParams }) => {
+  
     return (
         <>
-            <table className=" w-full  p-[2rem]">
+            <table className=" lg:w-full  p-[2rem]">
                 <thead className="border-b-2 border-black">
                     <tr>
                         <TableHeading
@@ -82,6 +84,7 @@ const TableItems = ({ items, confirmDeletion, sortChanged, queryParams }) => {
                                 {item.created_at}
                             </td>
                             <td className="p-3 text-sm whitespace-nowrap">
+                                {/* <ActionButton url="items.edit" dataId={item.id} dataName={items.name} confirmDeletion={confirmDeletion}/> */}
                                 <Dropdown>
                                     <Dropdown.Trigger className="bg-green-500">
                                         <span className="inline-flex rounded-md">

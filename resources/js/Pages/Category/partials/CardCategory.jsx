@@ -17,9 +17,7 @@ const CardCategory = ({categories,confirmDeletion}) => {
                                     <div className="flex items-center gap-4   text-sm">
                                     
                                         <div className="text-xl dark:text-gray-200 font-normal">
-                                           <Link href="">
-                                           {category.name}
-                                           </Link> 
+                                        <Link className="border-b-2 border-primary" href={'/items?categories_id='+category.id}>{category.name}</Link>
                                         </div>
                                     
                                     </div>
