@@ -36,7 +36,7 @@ const CardTransaction = ({ transactions, confirmDeletion }) => {
                                     <Bedge>{transaction.type}</Bedge>
                                 </a>
                             </div>
-                            <ActionButton url="transactions.edit" dataId={transaction.id} dataName={transaction.items.name} confirmDeletion={confirmDeletion}/>
+                            {/* <ActionButton url="transactions.edit" dataId={transaction.id} dataName={transaction.items.name} confirmDeletion={confirmDeletion}/> */}
                             
                         </div>
                     </div>

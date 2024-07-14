@@ -127,7 +127,7 @@ export default function Index({ auth, categories, queryParams = null ,success}) 
                         <PrimaryButton
                             onClick={() => router.get(route("categories.create"))}
                         >
-                            <SquarePlus className="mr-1" />{" "}
+                            <SquarePlus className="" />
                         </PrimaryButton>
                     </div>
                 </div>

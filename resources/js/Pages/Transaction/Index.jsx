@@ -6,7 +6,7 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router, useForm } from "@inertiajs/react";
-import { Camera, CircleEllipsis, Ellipsis, RefreshCw } from "lucide-react";
+import { BadgeCheck, Camera, CircleEllipsis, Ellipsis, RefreshCw, SquarePlus, SquareX } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import TableTransaction from "./Partials/TableTransaction";
 import CardTransaction from "./Partials/CardTransaction";
@@ -17,10 +17,11 @@ import FilterTransaction from "./Partials/FilterTransaction";
 import SortButton from "@/Components/SortButton";
 import TableHeading from "@/Components/TableHeading";
 // import { Camera } from 'lucide-react';
-export default function Index({ auth, transactions, queryParams = null }) {
+export default function Index({ auth, transactions, queryParams = null,success }) {
     const [confirmingDeletion, setConfirmingDeletion] = useState(false);
     const [transactionDelete, setTransactionDelete] = useState();
     const [transactionDeleteName, setTransactionDeleteName] = useState();
+    const [show, setShow] = useState(false);
     const passwordInput = useRef();
 
     const {
@@ -93,8 +94,10 @@ export default function Index({ auth, transactions, queryParams = null }) {
     };
 
     useEffect(() => {
-        console.log("this is transaction:", transactions);
-    });
+        if (success) {
+            setShow(true)
+        }
+    },[transactions]);
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -103,6 +106,9 @@ export default function Index({ auth, transactions, queryParams = null }) {
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                         Transaction List
                     </h2>
+                    <div className="flex gap-4">
+
+                   
                     <div className="hidden md:block">
                         <FilterTransaction
                             queryParams={queryParams}
@@ -111,6 +117,12 @@ export default function Index({ auth, transactions, queryParams = null }) {
                             resetFilter={resetFilter}
                         />
                     </div>
+                    <PrimaryButton
+                            onClick={() => router.get(route("transactions.create"))}
+                        >
+                            <SquarePlus className="" />
+                        </PrimaryButton>
+                        </div>
                 </div>
             }
         >
@@ -118,7 +130,17 @@ export default function Index({ auth, transactions, queryParams = null }) {
 
             <div className="py-12">
                 <div className="lg:max-w-7xl mx-[1rem] md:mx-auto sm:px-6 lg:px-8 ">
-                    <div className="flex gap-6 ">
+                    <div className="flex flex-col gap-6 ">
+                    {show &&(
+                              <div className="bg-primary w-full   shadow-sm sm:rounded-lg brutalism p-[1rem]  text-white flex flex-row gap-2 justify-between items-center">
+                              <div className="flex flex-row gap-2 items-center">
+                                
+                              <BadgeCheck size={30} />
+                              {success}
+                              </div>
+                              <SquareX strokeWidth={1.25} onClick={()=>setShow(false)} />
+                          </div>
+                        )}
                         <div className="bg-white w-full dark:bg-gray-800  shadow-sm sm:rounded-lg brutalism p-[2rem] dark:text-white hidden xl:block">
                             <div className=" brutalism rounded-sm  ">
                                 <TableTransaction

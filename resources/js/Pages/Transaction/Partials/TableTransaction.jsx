@@ -50,7 +50,7 @@ const TableTransaction = ({ transactions, confirmDeletion, sortChanged, queryPar
                             sort_direction={queryParams.sort_direction}
                             sortChanged={sortChanged}
                         >
-                            Qty
+                            Quantity
                         </TableHeading>
                         <TableHeading
                             name="note"
@@ -70,9 +70,9 @@ const TableTransaction = ({ transactions, confirmDeletion, sortChanged, queryPar
                         </TableHeading>
 
 
-                        <th className="p-3 w-20 text-sm font-semibold tracking-wide text-left">
+                        {/* <th className="p-3 w-20 text-sm font-semibold tracking-wide text-left">
                             Action
-                        </th>
+                        </th> */}
                     </tr>
                 </thead>
                 <tbody className="divide-y-[1px] divide-black ">
@@ -98,7 +98,7 @@ const TableTransaction = ({ transactions, confirmDeletion, sortChanged, queryPar
                                 {transaction.date}
                             </td>
                             <td className="p-3 text-sm whitespace-nowrap">
-                            <ActionButton url="transactions.edit" dataId={transaction.id} dataName={transaction.items.name} confirmDeletion={confirmDeletion}/>
+                            {/* <ActionButton url="transactions.edit" dataId={transaction.id} dataName={transaction.items.name} confirmDeletion={confirmDeletion}/> */}
                                 
                             </td>
                         </tr>

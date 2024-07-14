@@ -130,7 +130,7 @@ export default function Index({
                         <PrimaryButton
                             onClick={() => router.get(route("items.create"))}
                         >
-                            <SquarePlus className="mr-1" />{" "}
+                            <SquarePlus className="" />
                         </PrimaryButton>
                     </div>
                 </div>
