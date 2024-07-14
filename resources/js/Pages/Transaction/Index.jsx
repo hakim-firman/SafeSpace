@@ -39,7 +39,7 @@ export default function Index({ auth, transactions, queryParams = null }) {
         setConfirmingDeletion(true);
         setTransactionDelete(transaction);
         setTransactionDeleteName(name);
-        console.log(transaction);
+       
     };
 
     const delteTransaction = (e) => {

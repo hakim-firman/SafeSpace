@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\StoreItemsRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -26,6 +29,7 @@ class CategoryController extends Controller
         return Inertia::render('Category/Index',[
             'categories' => CategoryResource::collection($categories),
             'queryParams'=> request()->query()?:Null,
+            'success'=>session('success')
         ]);
     }
 
@@ -34,15 +38,22 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Category/Create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
-        //
+       
+       
+
+        $data=$request->validated();
+ 
+        $result = Category::create($data);
+   
+        return to_route('categories')->with('success','Category Was Created');
     }
 
     /**
@@ -58,15 +69,19 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return Inertia::render('Category/Edit',[
+            'category'=> new CategoryResource($category),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        $data=$request->validated();
+        $category->update($data);
+        return to_route('categories')->with('success',"Item \"$category->name\" was updated");
     }
 
     /**
@@ -74,6 +89,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return to_route('categories')->with('success','Categories Was Deleted');
     }
 }

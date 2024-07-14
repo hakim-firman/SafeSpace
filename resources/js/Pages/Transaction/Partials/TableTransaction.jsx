@@ -11,6 +11,7 @@ import { ChevronDown, ChevronUp, CircleEllipsis } from "lucide-react";
 import React from "react";
 
 const TableTransaction = ({ transactions, confirmDeletion, sortChanged, queryParams }) => {
+    
     return (
         <>
             <table className=" w-full  p-[2rem]  ">
@@ -75,7 +76,7 @@ const TableTransaction = ({ transactions, confirmDeletion, sortChanged, queryPar
                     </tr>
                 </thead>
                 <tbody className="divide-y-[1px] divide-black ">
-
+                    
                     {transactions.data.map((transaction, index) => (
                         <tr key={index} className=" dark:hover:bg-slate-900 hover:bg-slate-100">
                             <td className="p-3 text-sm whitespace-nowrap text-green-500 font-bold">
@@ -97,39 +98,8 @@ const TableTransaction = ({ transactions, confirmDeletion, sortChanged, queryPar
                                 {transaction.date}
                             </td>
                             <td className="p-3 text-sm whitespace-nowrap">
-                            {/* <ActionButton url="transactions.edit" dataId={transaction.id} dataName={transaction.items.name} confirmDeletion={confirmDeletion}/> */}
-                                <Dropdown className="z-50">
-                                    <Dropdown.Trigger className="bg-green-500">
-                                        <span className="inline-flex rounded-md">
-                                            <button
-                                                type="button"
-                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400  hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
-                                            >
-                                                <CircleEllipsis />
-                                            </button>
-                                        </span>
-                                    </Dropdown.Trigger>
-                                    <Dropdown.Content>
-                                        <Dropdown.Link
-                                            
-                                            href={route("transactions.edit", transaction.id)}
-                                        >
-                                            Edit
-                                        </Dropdown.Link>
-                                        <Dropdown.Link
-                                            onClick={(e) =>
-                                                confirmDeletion(
-                                                    e,
-                                                    transaction.id,
-                                                    transaction.items.name
-                                                )
-                                            }
-                                            as="button"
-                                        >
-                                            Delete
-                                        </Dropdown.Link>
-                                    </Dropdown.Content>
-                                </Dropdown>
+                            <ActionButton url="transactions.edit" dataId={transaction.id} dataName={transaction.items.name} confirmDeletion={confirmDeletion}/>
+                                
                             </td>
                         </tr>
 

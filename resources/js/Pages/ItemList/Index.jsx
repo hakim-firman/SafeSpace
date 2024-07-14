@@ -6,8 +6,16 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router, useForm } from "@inertiajs/react";
-import { Camera, CircleEllipsis, Ellipsis, RefreshCw } from "lucide-react";
-import { useRef, useState } from "react";
+import {
+    BadgeCheck,
+    Camera,
+    CircleEllipsis,
+    Ellipsis,
+    RefreshCw,
+    SquarePlus,
+    SquareX,
+} from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import TableItems from "./Partials/TableItems";
 import CardItems from "./Partials/CardItems";
 import TextInput from "@/Components/TextInput";
@@ -20,12 +28,12 @@ export default function Index({
     items,
     queryParams = null,
     categories,
+    success,
 }) {
     const [confirmingDeletion, setConfirmingDeletion] = useState(false);
     const [itemDelete, setItemDelete] = useState();
     const [itemDeleteName, setItemDeleteName] = useState();
-    const passwordInput = useRef();
-
+    const [show, setShow] = useState(false);
     const {
         data,
         setData,
@@ -42,7 +50,6 @@ export default function Index({
         setConfirmingDeletion(true);
         setItemDelete(item);
         setItemDeleteName(name);
-        console.log(item);
     };
 
     const delteItem = (e) => {
@@ -81,21 +88,26 @@ export default function Index({
     const resetFilter = () => {
         router.get(route("items"));
     };
-    const sortChanged = (name)=>{
-        if (name === queryParams.sort_field){
-            if(queryParams.sort_direction === 'asc'){
-                queryParams.sort_direction ='desc'
-            }else{
-                 queryParams.sort_direction ='asc'
+    const sortChanged = (name) => {
+        if (name === queryParams.sort_field) {
+            if (queryParams.sort_direction === "asc") {
+                queryParams.sort_direction = "desc";
+            } else {
+                queryParams.sort_direction = "asc";
             }
             router.get(route("items"), queryParams);
-        }else{
+        } else {
             queryParams.sort_field = name;
-            queryParams.sort_direction = 'asc';
+            queryParams.sort_direction = "asc";
             router.get(route("items"), queryParams);
-
         }
-    }
+    };
+    useEffect(()=>{
+        console.log(success)
+        if (success) {
+            setShow(true)
+        }
+    },[items])
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -104,16 +116,23 @@ export default function Index({
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                         Item List
                     </h2>
-                    <div className="hidden md:block">
-                    <FilterItems
-                        queryParams={queryParams}
-                        searchFieldChanged={searchFieldChanged}
-                        onKeyPress={onKeyPress}
-                        categories={categories}
-                        resetFilter={resetFilter}
-                    />
-                    </div>
+                    <div className="flex gap-4">
+                        <div className="hidden md:block ">
+                            <FilterItems
+                                queryParams={queryParams}
+                                searchFieldChanged={searchFieldChanged}
+                                onKeyPress={onKeyPress}
+                                categories={categories}
+                                resetFilter={resetFilter}
+                            />
+                        </div>
 
+                        <PrimaryButton
+                            onClick={() => router.get(route("items.create"))}
+                        >
+                            <SquarePlus className="mr-1" />{" "}
+                        </PrimaryButton>
+                    </div>
                 </div>
             }
         >
@@ -121,13 +140,24 @@ export default function Index({
 
             <div className="py-12">
                 <div className="lg:max-w-7xl mx-[1rem] md:mx-auto sm:px-6 lg:px-8 ">
-                    <div className="flex gap-6 ">
+                    <div className="flex flex-col gap-6 ">
+                        {show &&(
+                              <div className="bg-primary w-full   shadow-sm sm:rounded-lg brutalism p-[1rem]  text-white flex flex-row gap-2 justify-between items-center">
+                              <div className="flex flex-row gap-2 items-center">
+                                
+                              <BadgeCheck size={30} />
+                              {success}
+                              </div>
+                              <SquareX strokeWidth={1.25} onClick={()=>setShow(false)} />
+                          </div>
+                        )}
+                      
                         <div className="bg-white w-full dark:bg-gray-800  shadow-sm sm:rounded-lg brutalism p-[2rem] dark:text-white hidden md:block">
                             <div className=" brutalism rounded-sm ">
                                 <TableItems
                                     items={items}
                                     confirmDeletion={confirmDeletion}
-                                    sortChanged ={sortChanged }
+                                    sortChanged={sortChanged}
                                     queryParams={queryParams}
                                 />
                             </div>

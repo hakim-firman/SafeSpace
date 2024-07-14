@@ -1,4 +1,5 @@
 import PrimaryButton from "@/Components/PrimaryButton";
+import SecondaryButton from "@/Components/SecondaryButton";
 import SelectInput from "@/Components/SelectInput";
 import TextInput from "@/Components/TextInput";
 import { RefreshCw } from "lucide-react";
@@ -20,9 +21,9 @@ const FilterCategory = ({  queryParams,searchFieldChanged,onKeyPress ,categories
                     onKeyPress={(e) => onKeyPress("name", e)}
                 />
                
-                <PrimaryButton onClick={resetFilter}>
+                <SecondaryButton onClick={resetFilter}>
                     <RefreshCw size={24} />
-                </PrimaryButton>
+                </SecondaryButton>
             </div>
         </>
     );

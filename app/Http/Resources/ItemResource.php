@@ -8,11 +8,13 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class ItemResource extends JsonResource
 {
+    public static $wrap =false;
     /**
      * Transform the resource collection into an array.
      *
      * @return array<int|string, mixed>
      */
+
     public function toArray(Request $request): array
     {
         return [
@@ -21,6 +23,7 @@ class ItemResource extends JsonResource
             'name'=>$this->name,
             'stock'=>$this->stock,
             'created_at'=>(new Carbon($this->created_at))->format('d-m-Y'),
+            'update_at'=>(new Carbon($this->update_at))->format('d-m-Y'),
             'category'=>$this->categories,
         ];
     }

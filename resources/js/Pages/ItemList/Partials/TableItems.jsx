@@ -7,14 +7,15 @@ import Pagination from "@/Components/Pagination";
 import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
 import TableHeading from "@/Components/TableHeading";
+import { Link } from "@inertiajs/react";
 import { ChevronDown, ChevronUp, CircleEllipsis } from "lucide-react";
 import React from "react";
 
 const TableItems = ({ items, confirmDeletion, sortChanged, queryParams }) => {
-  
+
     return (
         <>
-            <table className=" lg:w-full  p-[2rem]">
+            <table className=" w-full  p-[2rem]">
                 <thead className="border-b-2 border-black">
                     <tr>
                         <TableHeading
@@ -71,9 +72,9 @@ const TableItems = ({ items, confirmDeletion, sortChanged, queryParams }) => {
                             <td className="p-3 text-sm whitespace-nowrap text-green-500 font-bold">
                                 {item.code}
                             </td>
-                            <td className="p-3 text-sm whitespace-nowrap">
-                                {item.name}
-                            </td>
+                            <th className="p-3 text-sm text-left whitespace-nowrap">
+                                 <Link className="hover:border-b-2 border-primary" href={route('items.show',item.id)}> {item.name}</Link>
+                            </th>
                             <td className="p-3 text-sm whitespace-nowrap">
                                 <Bedge>{item.category.name}</Bedge>
                             </td>
@@ -84,8 +85,8 @@ const TableItems = ({ items, confirmDeletion, sortChanged, queryParams }) => {
                                 {item.created_at}
                             </td>
                             <td className="p-3 text-sm whitespace-nowrap">
-                                {/* <ActionButton url="items.edit" dataId={item.id} dataName={items.name} confirmDeletion={confirmDeletion}/> */}
-                                <Dropdown>
+                                <ActionButton url="items.edit" dataId={item.id} dataName={item.name} confirmDeletion={confirmDeletion}/>
+                                {/* <Dropdown>
                                     <Dropdown.Trigger className="bg-green-500">
                                         <span className="inline-flex rounded-md">
                                             <button
@@ -116,7 +117,7 @@ const TableItems = ({ items, confirmDeletion, sortChanged, queryParams }) => {
                                             Delete
                                         </Dropdown.Link>
                                     </Dropdown.Content>
-                                </Dropdown>
+                                </Dropdown> */}
                             </td>
                         </tr>
                     ))}

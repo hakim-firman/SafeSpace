@@ -6,8 +6,16 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router, useForm } from "@inertiajs/react";
-import { Camera, CircleEllipsis, Ellipsis, RefreshCw } from "lucide-react";
-import { useRef, useState } from "react";
+import {
+    BadgeCheck,
+    Camera,
+    CircleEllipsis,
+    Ellipsis,
+    RefreshCw,
+    SquarePlus,
+    SquareX,
+} from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import TextInput from "@/Components/TextInput";
 import Pagination from "@/Components/Pagination";
 import SelectInput from "@/Components/SelectInput";
@@ -16,15 +24,12 @@ import FilterCategory from "./partials/FilterCategory";
 import CardCategory from "./partials/CardCategory";
 import TableHeading from "@/Components/TableHeading";
 // import { Camera } from 'lucide-react';
-export default function Index({
-    auth,
-    categories,
-    queryParams = null,
 
-}) {
+export default function Index({ auth, categories, queryParams = null ,success}) {
     const [confirmingDeletion, setConfirmingDeletion] = useState(false);
     const [categoryDelete, setCategoryDelete] = useState();
     const [categoryDeleteName, setCategoryDeleteName] = useState();
+    const [show, setShow] = useState();
     const passwordInput = useRef();
 
     const {
@@ -46,9 +51,9 @@ export default function Index({
         console.log(category);
     };
 
-    const delteItem = (e) => {
+    const delteCategory = (e) => {
         e.preventDefault();
-        destroy(route("category.delete", categoryDelete), {
+        destroy(route("categories.delete", categoryDelete), {
             preserveScroll: true,
             onSuccess: () => closeModal(),
             onError: () => alert("error"),
@@ -81,21 +86,26 @@ export default function Index({
     const resetFilter = () => {
         router.get(route("categories"));
     };
-    const sortChanged = (name)=>{
-        if (name === queryParams.sort_field){
-            if(queryParams.sort_direction === 'asc'){
-                queryParams.sort_direction ='desc'
-            }else{
-                 queryParams.sort_direction ='asc'
+    const sortChanged = (name) => {
+        if (name === queryParams.sort_field) {
+            if (queryParams.sort_direction === "asc") {
+                queryParams.sort_direction = "desc";
+            } else {
+                queryParams.sort_direction = "asc";
             }
             router.get(route("categories"), queryParams);
-        }else{
+        } else {
             queryParams.sort_field = name;
-            queryParams.sort_direction = 'asc';
+            queryParams.sort_direction = "asc";
             router.get(route("categories"), queryParams);
-
         }
-    }
+    };
+    useEffect(()=>{
+        console.log(success)
+        if (success) {
+            setShow(true)
+        }
+    },[categories])
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -104,24 +114,39 @@ export default function Index({
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                         Category List
                     </h2>
-                    <div className="hidden md:block">
-                    <FilterCategory
-                        queryParams={queryParams}
-                        searchFieldChanged={searchFieldChanged}
-                        onKeyPress={onKeyPress}
-                        categories={categories}
-                        resetFilter={resetFilter}
-                    />
+                    <div className="flex gap-4">
+                        <div className="hidden md:block">
+                            <FilterCategory
+                                queryParams={queryParams}
+                                searchFieldChanged={searchFieldChanged}
+                                onKeyPress={onKeyPress}
+                                categories={categories}
+                                resetFilter={resetFilter}
+                            />
+                        </div>
+                        <PrimaryButton
+                            onClick={() => router.get(route("categories.create"))}
+                        >
+                            <SquarePlus className="mr-1" />{" "}
+                        </PrimaryButton>
                     </div>
-
                 </div>
             }
         >
             <Head title="Category" />
-
             <div className="py-12">
                 <div className="lg:max-w-3xl mx-[1rem] md:mx-auto sm:px-6 lg:px-8 ">
-                    <div className="flex gap-6 ">
+                    <div className="flex flex-col gap-6 ">
+            {show &&(
+                              <div className="bg-primary w-full   shadow-sm sm:rounded-lg brutalism p-[1rem]  text-white flex flex-row gap-2 justify-between items-center">
+                              <div className="flex flex-row gap-2 items-center">
+                                
+                              <BadgeCheck size={30} />
+                              {success}
+                              </div>
+                              <SquareX strokeWidth={1.25} onClick={()=>setShow(false)} />
+                          </div>
+                        )}
                         {/* <div className="bg-white  dark:bg-gray-800 w-fit  shadow-sm sm:rounded-lg brutalism p-[2rem] dark:text-white hidden md:block">
                             <div className="flex flex-col gap-2">
                                 <h2 className="text-xl">Filter</h2>
@@ -148,7 +173,7 @@ export default function Index({
                                 <TableCategory
                                     categories={categories}
                                     confirmDeletion={confirmDeletion}
-                                    sortChanged ={sortChanged }
+                                    sortChanged={sortChanged}
                                     queryParams={queryParams}
                                 />
                             </div>
@@ -164,7 +189,6 @@ export default function Index({
                                 categories={categories}
                                 resetFilter={resetFilter}
                             />
-                            
                         </div>
                         <CardCategory
                             categories={categories}
@@ -174,7 +198,41 @@ export default function Index({
                             <Pagination links={categories.meta.links} />
                         </div>
                     </div>
+                    <Modal
+                        show={confirmingDeletion}
+                        onClose={closeModal}
+                        className=""
+                    >
+                        <form onSubmit={delteCategory} className="p-6">
+                            <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
+                                Are you sure you want to delete{" "}
+                                <span className="font-bold text-destructive">
+                                    {categoryDeleteName}
+                                </span>
+                                ?
+                            </h2>
 
+                            <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                                Once your account is deleted, all of its
+                                resources and data will be permanently deleted.
+                                Please enter your password to confirm you would
+                                like to permanently delete your account.
+                            </p>
+
+                            <div className="mt-6 flex justify-end">
+                                <SecondaryButton onClick={closeModal}>
+                                    Cancel
+                                </SecondaryButton>
+
+                                <DangerButton
+                                    className="ms-3"
+                                    disabled={processing}
+                                >
+                                    Delete Transaction
+                                </DangerButton>
+                            </div>
+                        </form>
+                    </Modal>
                 </div>
             </div>
         </AuthenticatedLayout>

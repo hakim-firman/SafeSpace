@@ -20,6 +20,7 @@ export default forwardRef(function SelectInput({ type = 'text', className = '',c
                 className
             }
             ref={input}
+            
         >
             {children}
         </select>

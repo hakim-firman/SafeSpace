@@ -1,3 +1,4 @@
+import ActionButton from "@/Components/ActionButton";
 import Bedge from "@/Components/Bedge";
 import DangerButton from "@/Components/DangerButton";
 import Dropdown from "@/Components/Dropdown";
@@ -35,31 +36,8 @@ const CardTransaction = ({ transactions, confirmDeletion }) => {
                                     <Bedge>{transaction.type}</Bedge>
                                 </a>
                             </div>
-                            <Dropdown>
-                                <Dropdown.Trigger>
-                                    <span className="inline-flex rounded-md">
-                                        <button
-                                            type="button"
-                                            className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
-                                        >
-                                            <CircleEllipsis />
-                                        </button>
-                                    </span>
-                                </Dropdown.Trigger>
-                                <Dropdown.Content>
-                                    <Dropdown.Link
-                                        href={`/transactions/edit/${transaction.id}`}
-                                    >
-                                        Edit
-                                    </Dropdown.Link>
-                                    <Dropdown.Link
-                                        onClick={confirmDeletion}
-                                        as="button"
-                                    >
-                                        Delete
-                                    </Dropdown.Link>
-                                </Dropdown.Content>
-                            </Dropdown>
+                            <ActionButton url="transactions.edit" dataId={transaction.id} dataName={transaction.items.name} confirmDeletion={confirmDeletion}/>
+                            
                         </div>
                     </div>
 

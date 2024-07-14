@@ -35,6 +35,8 @@ Route::middleware(['auth','verified'])->group(function () {
     Route ::resource('items',ItemController::class)->names([
         'index'=>'items',
         'create'=>'items.create',
+        'store'=>'items.save',
+        'show'=>'items.show',
         'update'=>'items.update',
         'edit'=>'items.edit',
         'destroy'=>'items.delete',
@@ -42,8 +44,10 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::resource('categories',CategoryController::class)->names([
     'index'=>'categories',
     'create'=>'categories.create',
+    'store'=>'categories.save',
     'update'=>'categories.update',
     'edit'=>'categories.edit',
+    'destroy'=>'categories.delete',
     ]);
     Route::resource('transactions',TransactionController::class)->names([
         'index'=>'transactions',

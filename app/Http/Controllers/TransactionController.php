@@ -15,7 +15,9 @@ class TransactionController extends Controller
     public function index()
     {
 
-        $query = Transaction::with('items')->join('items', 'items.id', '=', 'transactions.items_id');
+       
+        $query = Transaction::with('items')->join('items', 'items.id', '=', 'transactions.items_id')
+        ->select('transactions.id as transaction_id', 'items.id as item_id', 'transactions.*', 'items.*');
         $sortFields = request('sort_field', 'date');
         $sortDirection = request('sort_direction', 'desc');
         // query filter

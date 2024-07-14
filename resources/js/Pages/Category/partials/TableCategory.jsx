@@ -1,3 +1,4 @@
+import ActionButton from "@/Components/ActionButton";
 import Bedge from "@/Components/Bedge";
 import DangerButton from "@/Components/DangerButton";
 import Dropdown from "@/Components/Dropdown";
@@ -45,14 +46,16 @@ const TableCategory = ({
                         className=" dark:hover:bg-slate-900 hover:bg-slate-100"
                     >
                         <td className="p-3 text-sm whitespace-nowrap text-green-500 font-bold">
-                            {index + 1}
+                            {index+1}
                         </td>
-                        <td className="p-3 text-sm whitespace-nowrap ">
+                        <th className="p-3 text-sm text-left whitespace-nowrap ">
                             <Link className="hover:border-b-2 border-primary" href={'/items?categories_id='+category.id}>{category.name}</Link>
-                        </td>
+                        </th>
 
                         <td className="p-3 text-sm whitespace-nowrap">
-                            <Dropdown>
+                          
+                        <ActionButton url="categories.edit" dataId={category.id} dataName={category.name} confirmDeletion={confirmDeletion}/>
+                            {/* <Dropdown>
                                 <Dropdown.Trigger className="bg-green-500">
                                     <span className="inline-flex rounded-md">
                                         <button
@@ -74,7 +77,7 @@ const TableCategory = ({
                                         Edit
                                     </Dropdown.Link>
                                 </Dropdown.Content>
-                            </Dropdown>
+                            </Dropdown> */}
                         </td>
                     </tr>
                 ))}
